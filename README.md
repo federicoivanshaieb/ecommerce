@@ -63,69 +63,130 @@ Funciones y Vistas Clave
 vista_clientes_frecuentes: Una vista que identifica a los clientes que han realizado más de 3 órdenes, calculando el total gastado.
 
 CREATE OR REPLACE VIEW vista_clientes_frecuentes AS
+
 SELECT
+
     u.ID_Usuario,
+    
     u.Nombre,
+    
     COUNT(o.ID_Orden) AS Total_Ordenes,
+    
     SUM(o.Total_Orden) AS Gasto_Total
+    
 FROM
+
     Usuarios u
+    
 JOIN
+
     Órdenes o ON u.ID_Usuario = o.ID_Usuario
+    
 GROUP BY
+
     u.ID_Usuario, u.Nombre
+    
 HAVING
+
     Total_Ordenes > 3
+    
 ORDER BY
+
     Total_Ordenes DESC;
+    
 
 vista_ingresos_mensuales_por_categoria: Una vista que muestra los ingresos totales por mes para cada categoría de producto.
 
+
 CREATE OR REPLACE VIEW vista_ingresos_mensuales_por_categoria AS
+
 SELECT
+
     c.Nombre_Categoría,
+    
     DATE_FORMAT(o.Fecha_Orden, '%Y-%m') AS Mes,
+    
     SUM(o.Total_Orden) AS Ingreso_Total_Mensual
+    
 FROM
+
     Categorías c
+    
 JOIN
+
     Productos p ON c.ID_Categoría = p.ID_Categoría
+    
 JOIN
+
     Detalles_Orden do ON p.ID_Producto = do.ID_Producto
+    
 JOIN
+
     Órdenes o ON do.ID_Orden = o.ID_Orden
+    
 GROUP BY
+
     c.Nombre_Categoría, Mes
+    
 ORDER BY
+
     Mes, Ingreso_Total_Mensual DESC;
+    
 
 Consultas Avanzadas
+
 Consulta para encontrar el producto más vendido por categoría:
 
+
+
 SELECT 
+
     c.Nombre_Categoría,
+    
     sub.Nombre_Producto,
+    
     sub.Total_Vendido
+    
 FROM 
+
     Categorías c
+    
 JOIN (
+
     SELECT 
+    
         p.Nombre_Producto,
+        
         p.ID_Categoría,
+        
         SUM(do.Cantidad) AS Total_Vendido
+        
     FROM 
+    
         Productos p
+        
     JOIN 
+    
         Detalles_Orden do ON p.ID_Producto = do.ID_Producto
-    GROUP BY 
+        
+    GROUP BY
+    
         p.ID_Producto, p.Nombre_Producto
-    ORDER BY 
+        
+    ORDER BY
+    
         Total_Vendido DESC
+        
 ) AS sub ON c.ID_Categoría = sub.ID_Categoría
+
 GROUP BY 
+
     c.ID_Categoría
+    
 ORDER BY 
+
     sub.Total_Vendido DESC;
+    
 
 🔮 Mejoras Futuras
 Módulos de Logística y Marketing: Expandir el esquema para incluir la gestión de envíos, campañas de marketing y proveedores.

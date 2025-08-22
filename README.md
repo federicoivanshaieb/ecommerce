@@ -1,4 +1,5 @@
 📊 Sistema de Gestión de Ventas para E-commerce
+
 📄 Resumen del Proyecto
 Este proyecto es un sistema de gestión de bases de datos relacionales diseñado para un negocio de comercio electrónico. Su objetivo principal es centralizar y gestionar de manera eficiente la información de productos, clientes, pedidos, inventario y ventas. La base de datos está optimizada para la toma de decisiones, permitiendo a los administradores identificar los productos más vendidos, analizar el comportamiento del cliente y controlar el inventario en tiempo real.
 

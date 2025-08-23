@@ -48,10 +48,10 @@ shaieb-tpf.pptx: Presentación original del proyecto.
 Instala MySQL: Asegúrate de tener un servidor MySQL instalado en tu máquina.
 
 Crea la base de datos: Ejecuta el siguiente comando en tu cliente de MySQL:
-
+```
 CREATE DATABASE ventas_ecommerce;
 USE ventas_ecommerce;
-
+```
 Ejecuta el script SQL: Carga y ejecuta el archivo ecommerce.sql en tu servidor MySQL para crear todas las tablas, vistas y automatizaciones.
 
 Importa los datos de muestra: Utiliza la herramienta de importación de tu cliente de MySQL (por ejemplo, el asistente de importación en MySQL Workbench) para cargar los datos de los archivos usuarios.csv y categorias.csv en sus respectivas tablas.
@@ -62,42 +62,31 @@ Aquí se destacan algunos de los componentes más importantes que demuestran la 
 Funciones y Vistas Clave
 vista_clientes_frecuentes: Una vista que identifica a los clientes que han realizado más de 3 órdenes, calculando el total gastado.
 
+
+```
 CREATE OR REPLACE VIEW vista_clientes_frecuentes AS
-
 SELECT
-
     u.ID_Usuario,
-    
     u.Nombre,
-    
     COUNT(o.ID_Orden) AS Total_Ordenes,
-    
     SUM(o.Total_Orden) AS Gasto_Total
-    
 FROM
-
     Usuarios u
-    
+
 JOIN
-
     Órdenes o ON u.ID_Usuario = o.ID_Usuario
-    
+
 GROUP BY
-
     u.ID_Usuario, u.Nombre
-    
 HAVING
-
     Total_Ordenes > 3
-    
 ORDER BY
-
     Total_Ordenes DESC;
-    
+```
 
 vista_ingresos_mensuales_por_categoria: Una vista que muestra los ingresos totales por mes para cada categoría de producto.
 
-
+```
 CREATE OR REPLACE VIEW vista_ingresos_mensuales_por_categoria AS
 
 SELECT
@@ -132,12 +121,12 @@ ORDER BY
 
     Mes, Ingreso_Total_Mensual DESC;
     
-
+```
 Consultas Avanzadas
 
 Consulta para encontrar el producto más vendido por categoría:
 
-
+```
 
 SELECT 
 
@@ -187,7 +176,7 @@ ORDER BY
 
     sub.Total_Vendido DESC;
     
-
+```
 🔮 Mejoras Futuras
 Módulos de Logística y Marketing: Expandir el esquema para incluir la gestión de envíos, campañas de marketing y proveedores.
 
